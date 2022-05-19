@@ -18,7 +18,8 @@ router.get('/', (req, res) => {
 router.get('/:arrayIndex', (req, res) => {
     const { arrayIndex } = req.params
     res.render('Show', {
-        bread: Bread[arrayIndex]
+        bread: Bread[arrayIndex],
+        index: arrayIndex
     })
 })
 
@@ -35,6 +36,12 @@ router.post('/', (req, res) => {
 
     Bread.push(req.body)
     res.redirect('/breads')
+})
+
+// Delete a bread
+router.delete('/:arrayIndex', (req, res) => {
+    Bread.splice(req.params.arrayIndex, 1)
+    res.status(303).redirect('/breads')
 })
 
 module.exports = router
