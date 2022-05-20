@@ -44,4 +44,26 @@ router.delete('/:arrayIndex', (req, res) => {
     res.status(303).redirect('/breads')
 })
 
+// Get Edit Page
+router.get('/:arrayIndex/edit', (req, res) => {
+    const { arrayIndex } = req.params
+    res.render('edit', {
+        bread: Bread[arrayIndex],
+        index: arrayIndex
+    })
+})
+
+// Update Bread
+router.put('/:arrayIndex', (req, res) => {
+    const { arrayIndex } = req.params
+    if(req.body.hasGluten === 'on') {
+        req.body.hasGluten = true
+    } else {
+        req.body.hasGluten = false
+    }
+
+    Bread[arrayIndex] = req.body
+    res.redirect(`/breads/${arrayIndex}`)
+})
+
 module.exports = router
