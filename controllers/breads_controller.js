@@ -37,6 +37,9 @@ router.get('/:id', async (req, res) => {
 // Create New Bread
 router.post('/', async (req, res) => {
     try {
+        if(!req.body.image) {
+            delete req.body['image']
+        }
         if(req.body.hasGluten === 'on') {
             req.body.hasGluten = true
         } else {
