@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const mongoose = require('mongoose')
 const breadRoutes = require('./controllers/breads_controller')
 const methodOverride = require('method-override')
 
@@ -20,6 +21,11 @@ app.use('/breads', breadRoutes)
 app.get('/', (req, res) => {6
     res.send("Welcome to BREAD!")
 })
+
+// DB connection
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => console.log('DB connected'))
+    .catch(err => console.error(err));
 
 const PORT = process.env.PORT
 
