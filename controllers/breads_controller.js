@@ -1,9 +1,21 @@
 const express = require('express')
 const router = express.Router()
+
 const Bread = require('../models/bread')
+const seedData = require('../models/seed')
 
 router.get('/new', (req, res) => {
     res.render('new')
+})
+
+router.get('/seed', async (req, res) => {
+    try {
+       await Bread.insertMany(seedData)
+       res.redirect('/breads')
+    } catch (error) {
+        console.log(error)
+        res.send('ERROR')
+    }
 })
 
 // Get all Bread
